@@ -12,14 +12,13 @@ public class Main {
         String Hum = "human";
         String Bus = "business";
 
-//
         CreditCalc calc = new CreditCalc();
 
         if (creditInfo.length == 4) {
             try {
                 boolean checkHum = Hum.equalsIgnoreCase(creditInfo[3]);
                 boolean checkBus = Bus.equalsIgnoreCase(creditInfo[3]);
-                if (checkHum == true || checkBus == true) {
+                if (checkHum || checkBus) {
                     for (int i = 0; i < creditInfo.length - 1; i++) {
                         creditValues[i] = Double.parseDouble(creditInfo[i]);
                     }
