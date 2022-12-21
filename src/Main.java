@@ -1,36 +1,35 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NewExceptions {
+        final String HUMAN_TYPE = "human";
+        final String BUSINESS_TYPE = "business";
+
+        CreditData data = new CreditData();
+        CreditCalc calc = new CreditCalc();
 
         Scanner sc = new Scanner(System.in);
         System.out.println("Введите данные по кредиту через пробел:");
-        String scString = sc.nextLine();
-        String[] creditInfo = scString.split(" ");
-        double[] creditValues = new double[creditInfo.length];
+        data.setCreditInfo(sc.nextLine());
 
-        String Hum = "human";
-        String Bus = "business";
 
-        CreditCalc calc = new CreditCalc();
-
-        if (creditInfo.length == 4) {
+        if (data.getCreditInfoLength() == 4) {
             try {
-                boolean checkHum = Hum.equalsIgnoreCase(creditInfo[3]);
-                boolean checkBus = Bus.equalsIgnoreCase(creditInfo[3]);
+                boolean checkHum = HUMAN_TYPE.equalsIgnoreCase(data.getCreditInfo(3));
+                boolean checkBus = BUSINESS_TYPE.equalsIgnoreCase(data.getCreditInfo(3));
                 if (checkHum || checkBus) {
-                    for (int i = 0; i < creditInfo.length - 1; i++) {
-                        creditValues[i] = Double.parseDouble(creditInfo[i]);
+                    for (int i = 0; i < data.getCreditInfoLength() - 1; i++) {
+                        data.setCreditValues(i);
                     }
-                    if (calc.getVerification(creditValues[0], creditValues[1], creditValues[2], creditInfo[3]) == 1) {
-                        calc.getOverpayment(creditValues[0], creditValues[1], creditValues[2], creditInfo[3]);
-                    } else System.out.println("Введены невозможные значения по кредиту!");
-                } else System.out.println("Некорректно введен тип клиента!");
+                    if (calc.getVerification(data.getCreditValues(0), data.getCreditValues(1), data.getCreditValues(2), data.getCreditInfo(3)) == 1) {
+                        calc.getOverpayment(data.getCreditValues(0), data.getCreditValues(1), data.getCreditValues(2), data.getCreditInfo(3));
+                    }
+                } else throw new NewExceptions("Введен некорректный тип клиента!");
             } catch (NumberFormatException | ArrayIndexOutOfBoundsException | NullPointerException t) {
-                System.out.println("Значения введены некорректно!");
+                t.printStackTrace();
             }
-
-        } else System.out.println("Введено больше или меньше значений для расчета! ");
+        } else throw new NewExceptions("Введено неверное количество параметров!");
     }
 }
 
