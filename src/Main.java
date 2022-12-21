@@ -12,18 +12,17 @@ public class Main {
         String Hum = "human";
         String Bus = "business";
 
-//
         CreditCalc calc = new CreditCalc();
 
         if (creditInfo.length == 4) {
             try {
                 boolean checkHum = Hum.equalsIgnoreCase(creditInfo[3]);
                 boolean checkBus = Bus.equalsIgnoreCase(creditInfo[3]);
-                if (checkHum == true || checkBus == true) {
+                if (checkHum || checkBus) {
                     for (int i = 0; i < creditInfo.length - 1; i++) {
                         creditValues[i] = Double.parseDouble(creditInfo[i]);
                     }
-                    if (CreditCalc.getVerification(creditValues[0], creditValues[1], creditValues[2], creditInfo[3]) == 1) {
+                    if (calc.getVerification(creditValues[0], creditValues[1], creditValues[2], creditInfo[3]) == 1) {
                         calc.getOverpayment(creditValues[0], creditValues[1], creditValues[2], creditInfo[3]);
                     } else System.out.println("Введены невозможные значения по кредиту!");
                 } else System.out.println("Некорректно введен тип клиента!");

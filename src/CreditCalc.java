@@ -4,7 +4,7 @@ public class CreditCalc {
 
     int years;
 
-    public static int getVerification(double credit, double payment, double percent, String client) {
+    public int getVerification(double credit, double payment, double percent, String client) {
         if (credit > 0 && payment > 0 && percent > 0 && credit > payment && payment > percent) {
             if (client.equalsIgnoreCase("business")) {
                 boolean possibility = ((credit - (payment * 12)) + (credit / 100 * percent) - (payment * 12) < credit);
