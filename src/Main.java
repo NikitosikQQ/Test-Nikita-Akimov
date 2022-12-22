@@ -2,7 +2,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws NewExceptions {
+    public static void main(String[] args) throws CreditException {
         final String HUMAN_TYPE = "human";
         final String BUSINESS_TYPE = "business";
 
@@ -16,20 +16,20 @@ public class Main {
 
         if (data.getCreditInfoLength() == 4) {
             try {
-                boolean checkHum = HUMAN_TYPE.equalsIgnoreCase(data.getCreditInfo(3));
-                boolean checkBus = BUSINESS_TYPE.equalsIgnoreCase(data.getCreditInfo(3));
+                boolean checkHum = HUMAN_TYPE.equalsIgnoreCase(data.getClientType());
+                boolean checkBus = BUSINESS_TYPE.equalsIgnoreCase(data.getClientType());
                 if (checkHum || checkBus) {
                     for (int i = 0; i < data.getCreditInfoLength() - 1; i++) {
                         data.setCreditValues(i);
                     }
-                    if (calc.getVerification(data.getCreditValues(0), data.getCreditValues(1), data.getCreditValues(2), data.getCreditInfo(3)) == 1) {
-                        calc.getOverpayment(data.getCreditValues(0), data.getCreditValues(1), data.getCreditValues(2), data.getCreditInfo(3));
+                    if (calc.getVerification(data) == 1) {
+                        calc.getOverpayment(data);
                     }
-                } else throw new NewExceptions("Введен некорректный тип клиента!");
+                } else throw new CreditException("Введен некорректный тип клиента!");
             } catch (NumberFormatException | ArrayIndexOutOfBoundsException | NullPointerException t) {
                 t.printStackTrace();
             }
-        } else throw new NewExceptions("Введено неверное количество параметров!");
+        } else throw new CreditException("Введено неверное количество параметров!");
     }
 }
 
