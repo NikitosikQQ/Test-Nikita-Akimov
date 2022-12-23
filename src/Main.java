@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -11,17 +12,17 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
         System.out.println("Введите данные по кредиту через пробел:");
-        data.setCreditInfo(sc.nextLine());
+        String scString = sc.nextLine();
+        String creditInfo[] = scString.split(" ");
+        data.setCreditInfo(creditInfo);
 
 
-        if (data.getCreditInfoLength() == 4) {
+        if (data.getCreditInfoLength(creditInfo) == 4) {
+           creditInfo = null;
             try {
                 boolean checkHum = HUMAN_TYPE.equalsIgnoreCase(data.getClientType());
                 boolean checkBus = BUSINESS_TYPE.equalsIgnoreCase(data.getClientType());
                 if (checkHum || checkBus) {
-                    for (int i = 0; i < data.getCreditInfoLength() - 1; i++) {
-                        data.setCreditValues(i);
-                    }
                     if (calc.getVerification(data) == 1) {
                         calc.getOverpayment(data);
                     }

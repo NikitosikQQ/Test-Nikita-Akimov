@@ -1,30 +1,19 @@
 public class CreditData {
-    private String[] creditInfo;
-    private double[] creditValues;
     private double credit;
     private double percent;
     private double payment;
     private String clientType;
 
-    public void setCreditInfo(String scString) {
-        creditInfo = scString.split(" ");
-        creditValues = new double[creditInfo.length];
-        clientType = creditInfo[3];
+    public void setCreditInfo(String scString[]) {
+
+        credit = Double.parseDouble(scString[0]);
+        payment = Double.parseDouble(scString[1]);
+        percent = Double.parseDouble(scString[2]);
+        clientType = scString[3];
     }
 
-    public void setCreditValues(int i) {
-        creditValues[i] = Double.parseDouble(creditInfo[i]);
-        credit = creditValues[0];
-        payment = creditValues[1];
-        percent = creditValues[2];
-    }
-
-    public int getCreditInfoLength() {
-        return creditInfo.length;
-    }
-
-    public String getCreditInfo(int n) {
-        return creditInfo[n];
+    public int getCreditInfoLength(String scString[]) {
+        return scString.length;
     }
 
     public double getCredit() {
